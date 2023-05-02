@@ -1,7 +1,9 @@
 
+import CartLabels from "./cartcomponents/CartLabels";
+import CartButtons from "./cartcomponents/CartButtons";
+
 export default function CheckOutList(props) {
     const text = 'Shopping Cart';
-    const labels = ['Img', 'Product', 'Quantity', 'Price'];
     let totalSum = 0;
 
     const uniqueItems = Object.values(props.checkOutArr);
@@ -16,7 +18,6 @@ export default function CheckOutList(props) {
             uniqueItems.forEach(item => {
                 patchToFirebase(item.id, item.quant)
             });
-            props.setCheckOutArr([]);
         }
         else if (option === 'Remove') {
             props.setIsShopping(true);
@@ -38,6 +39,8 @@ export default function CheckOutList(props) {
             alert(`${itemToUpdate.product} doesnt have enough in stock`);
             return;
         }
+
+        props.setCheckOutArr([]);
 
         const updateStockbalance = itemToUpdate.stockbalance - quant;
         const newStockBalance = {
@@ -61,11 +64,7 @@ export default function CheckOutList(props) {
             {/*Header for Shopping Cart*/}
             <h2>{text}</h2>
             <ul>
-                <li id='labelsCart'>
-                    {labels.map((item) => (
-                        <span>{item}</span>
-                    ))}
-                </li>
+                <CartLabels />
                 {/*Create list for every item added*/}
                 {props.checkOutArr.map((item) => (
                     <li key={item.id}>
@@ -78,11 +77,7 @@ export default function CheckOutList(props) {
                 <li id='totalSum'><span>Total: {totalSum}</span></li>
             </ul>
             {/*Buttons for checkout and Continue*/}
-            <section>
-                <button id="removeButton" onClick={checkOut}>Remove</button>
-                <button id="continueButton" onClick={checkOut}>Continue</button>
-                <button id="checkoutButton" onClick={checkOut}>Checkout</button>
-            </section>
+            <CartButtons checkOut={checkOut} />
         </div>
     );
 }
