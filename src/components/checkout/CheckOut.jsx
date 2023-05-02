@@ -6,7 +6,7 @@ export default function CheckOut(props) {
 
     return (
         <div id="checkout">
-            <CheckOutList  checkOutArr={props.checkOutArr} setIsShopping={props.setIsShopping}/>
+            <CheckOutList  checkOutArr={props.checkOutArr} setCheckOutArr={props.setCheckOutArr} setIsShopping={props.setIsShopping}/>
         </div>
     );
 }

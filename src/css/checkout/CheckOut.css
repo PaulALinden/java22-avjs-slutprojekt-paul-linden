@@ -33,6 +33,10 @@
    background-color: #52b8e4;
 }
 
+#checkout #removeButton {
+    background-color: #e45252;
+ }
+
 #checkout div section {
     display: flex;
     justify-content: space-between;

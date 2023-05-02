@@ -7,16 +7,27 @@ export default function ProductCard(props) {
     function addToCart(event) {
         const id = event.target.parentElement.id;
         const item = listData.find((item) => item.id === parseInt(id));
+        const existingItemIndex = props.checkOutArr.findIndex((cartItem) => cartItem.id === item.id);
 
         if (item.stockbalance === 0) {
             alert('Out of stock');
             return;
         }
-
-        if (item) {
+        
+        if (existingItemIndex === -1) {
+            item.quant = 1;
             props.setCheckOutArr((checkOutArr) => [...checkOutArr, item]);
         }
-
+        else {
+            const updatedItem = {
+                ...props.checkOutArr[existingItemIndex],
+                quant: props.checkOutArr[existingItemIndex].quant + 1,
+                price: props.checkOutArr[existingItemIndex].price + item.price
+            };
+            const updatedCheckOutArr = [...props.checkOutArr];
+            updatedCheckOutArr[existingItemIndex] = updatedItem;
+            props.setCheckOutArr(updatedCheckOutArr);
+        }
     }
 
     useEffect(() => {
@@ -25,7 +36,6 @@ export default function ProductCard(props) {
             const data = await res.json();
             setListData(Object.values(data));
         }
-
         getData();
     }, []);
 

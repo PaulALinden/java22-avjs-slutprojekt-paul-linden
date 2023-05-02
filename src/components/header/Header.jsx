@@ -4,10 +4,13 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 export default function Header(props) {
 
     const isShopping = props.isShopping;
-    let itemsInCart = props.checkOutArr.length;
+    let itemsInCart = 0;
     let cartDisplay;
     let amountDisplay;
     
+    props.checkOutArr.forEach(element => {
+        itemsInCart = itemsInCart + element.quant;
+    });
 
     if (!isShopping) {
         cartDisplay = 'hidden';

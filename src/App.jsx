@@ -15,7 +15,7 @@ function App() {
         <>
             <Header setIsShopping={setIsShopping} isShopping={isShopping} checkOutArr={checkOutArr} />
             <div>
-                {isShopping ? <Shop setIsShopping={setIsShopping} setCheckOutArr={setCheckOutArr} /> : <CheckOut checkOutArr={checkOutArr} setIsShopping={setIsShopping} />}
+                {isShopping ? <Shop setIsShopping={setIsShopping} checkOutArr={checkOutArr} setCheckOutArr={setCheckOutArr} /> : <CheckOut checkOutArr={checkOutArr} setCheckOutArr={setCheckOutArr} setIsShopping={setIsShopping} />}
             </div>
         </>
     );
