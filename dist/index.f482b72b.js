@@ -27196,8 +27196,8 @@ function Header(props) {
     let itemsInCart = 0;
     let cartDisplay;
     let amountDisplay;
-    props.checkOutArr.forEach((element)=>{
-        itemsInCart = itemsInCart + element.quant;
+    props.checkOutArr.forEach((item)=>{
+        itemsInCart = itemsInCart + item.quant;
     });
     if (!isShopping) cartDisplay = "hidden";
     else cartDisplay = "";
@@ -52791,43 +52791,49 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
 var _shopCss = require("../../css/shop/Shop.css");
 var _shopArticle = require("./shoparticle/ShopArticle");
 var _shopArticleDefault = parcelHelpers.interopDefault(_shopArticle);
 var _shopAside = require("./shopaside/ShopAside");
 var _shopAsideDefault = parcelHelpers.interopDefault(_shopAside);
+var _s = $RefreshSig$();
 function Shop(props) {
+    _s();
+    const [category, setCategory] = (0, _react.useState)("all");
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         id: "shop",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
             id: "shopMain",
             children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shopAsideDefault.default), {}, void 0, false, {
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shopAsideDefault.default), {
+                    setCategory: setCategory
+                }, void 0, false, {
                     fileName: "src/components/shop/Shop.jsx",
-                    lineNumber: 12,
+                    lineNumber: 15,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _shopArticleDefault.default), {
-                    ...props
+                    ...props,
+                    category: category
                 }, void 0, false, {
                     fileName: "src/components/shop/Shop.jsx",
-                    lineNumber: 13,
+                    lineNumber: 16,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/shop/Shop.jsx",
-            lineNumber: 11,
+            lineNumber: 14,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "src/components/shop/Shop.jsx",
-        lineNumber: 10,
+        lineNumber: 13,
         columnNumber: 9
     }, this);
 }
 exports.default = Shop;
+_s(Shop, "ruSvtA9gvIUKEuHsc3YeHCWe1+E=");
 _c = Shop;
 var _c;
 $RefreshReg$(_c, "Shop");
@@ -52864,7 +52870,8 @@ function ShopArticle(props) {
                 id: "productContainer",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productCardDefault.default), {
                     setCheckOutArr: props.setCheckOutArr,
-                    checkOutArr: props.checkOutArr
+                    checkOutArr: props.checkOutArr,
+                    category: props.category
                 }, void 0, false, {
                     fileName: "src/components/shop/shoparticle/ShopArticle.jsx",
                     lineNumber: 14,
@@ -52907,6 +52914,7 @@ var _s = $RefreshSig$();
 function ProductCard(props) {
     _s();
     const [listData, setListData] = (0, _react.useState)([]);
+    console.log(props.category);
     function addToCart(event) {
         const id = event.target.parentElement.id;
         const item = listData.find((item)=>item.id === parseInt(id));
@@ -52938,7 +52946,12 @@ function ProductCard(props) {
         async function getData() {
             const res = await fetch(`https://react-shop-45c8b-default-rtdb.europe-west1.firebasedatabase.app/products.json`);
             const data = await res.json();
-            setListData(Object.values(data));
+            const dataValue = Object.values(data);
+            if (props.category === "all") setListData(Object.values(data));
+            else {
+                const filteredList = dataValue.filter((item)=>item.category === props.category);
+                setListData(Object.values(filteredList));
+            }
         }
         getData();
     }, []);
@@ -52951,7 +52964,7 @@ function ProductCard(props) {
                     children: item.product
                 }, void 0, false, {
                     fileName: "src/components/shop/shoparticle/productcard/ProductCard.jsx",
-                    lineNumber: 46,
+                    lineNumber: 56,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
@@ -52959,7 +52972,7 @@ function ProductCard(props) {
                     alt: ""
                 }, void 0, false, {
                     fileName: "src/components/shop/shoparticle/productcard/ProductCard.jsx",
-                    lineNumber: 47,
+                    lineNumber: 57,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -52970,7 +52983,7 @@ function ProductCard(props) {
                     ]
                 }, void 0, true, {
                     fileName: "src/components/shop/shoparticle/productcard/ProductCard.jsx",
-                    lineNumber: 48,
+                    lineNumber: 58,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -52981,7 +52994,7 @@ function ProductCard(props) {
                     ]
                 }, void 0, true, {
                     fileName: "src/components/shop/shoparticle/productcard/ProductCard.jsx",
-                    lineNumber: 49,
+                    lineNumber: 59,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -52989,13 +53002,13 @@ function ProductCard(props) {
                     children: "Add"
                 }, void 0, false, {
                     fileName: "src/components/shop/shoparticle/productcard/ProductCard.jsx",
-                    lineNumber: 50,
+                    lineNumber: 60,
                     columnNumber: 17
                 }, this)
             ]
         }, item.id, true, {
             fileName: "src/components/shop/shoparticle/productcard/ProductCard.jsx",
-            lineNumber: 45,
+            lineNumber: 55,
             columnNumber: 13
         }, this));
 }
@@ -53020,30 +53033,36 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-function ShopAside() {
+function ShopAside(props) {
     const category = [
+        "All",
         "Desktops",
         "Laptops",
         "Games"
     ];
+    function chooseCategory(event) {
+        let choosenCategory = event.target.textContent.toLowerCase();
+        props.setCategory(choosenCategory);
+    }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("aside", {
         id: "shopAside",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
             children: category.map((item)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                    onClick: chooseCategory,
                     children: item
                 }, item, false, {
                     fileName: "src/components/shop/shopaside/ShopAside.jsx",
-                    lineNumber: 10,
+                    lineNumber: 15,
                     columnNumber: 21
                 }, this))
         }, void 0, false, {
             fileName: "src/components/shop/shopaside/ShopAside.jsx",
-            lineNumber: 8,
+            lineNumber: 13,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "src/components/shop/shopaside/ShopAside.jsx",
-        lineNumber: 7,
+        lineNumber: 12,
         columnNumber: 9
     }, this);
 }
@@ -53068,27 +53087,43 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _checkOutCss = require("../../css/checkout/CheckOut.css");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
 var _checkOutList = require("./checkoutlist/CheckOutList");
 var _checkOutListDefault = parcelHelpers.interopDefault(_checkOutList);
+var _checkOutMessage = require("./checkoutlist/CheckOutMessage");
+var _checkOutMessageDefault = parcelHelpers.interopDefault(_checkOutMessage);
+var _s = $RefreshSig$();
 function CheckOut(props) {
+    _s();
+    const [ischeckedOut, setIsCheckedOut] = (0, _react.useState)(true);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         id: "checkout",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _checkOutListDefault.default), {
+        children: ischeckedOut ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _checkOutListDefault.default), {
             checkOutArr: props.checkOutArr,
             setCheckOutArr: props.setCheckOutArr,
+            setIsShopping: props.setIsShopping,
+            setIsCheckedOut: setIsCheckedOut
+        }, void 0, false, {
+            fileName: "src/components/checkout/CheckOut.jsx",
+            lineNumber: 13,
+            columnNumber: 29
+        }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _checkOutMessageDefault.default), {
+            setIsCheckedOut: setIsCheckedOut,
             setIsShopping: props.setIsShopping
         }, void 0, false, {
             fileName: "src/components/checkout/CheckOut.jsx",
-            lineNumber: 9,
-            columnNumber: 13
+            lineNumber: 13,
+            columnNumber: 188
         }, this)
     }, void 0, false, {
         fileName: "src/components/checkout/CheckOut.jsx",
-        lineNumber: 8,
+        lineNumber: 12,
         columnNumber: 9
     }, this);
 }
 exports.default = CheckOut;
+_s(CheckOut, "Cnf5ls/cr3ElOwBbXXwAfsj/Gxo=");
 _c = CheckOut;
 var _c;
 $RefreshReg$(_c, "CheckOut");
@@ -53098,7 +53133,7 @@ $RefreshReg$(_c, "CheckOut");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../../css/checkout/CheckOut.css":"9mMSt","./checkoutlist/CheckOutList":"k9EZy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9mMSt":[function() {},{}],"k9EZy":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","../../css/checkout/CheckOut.css":"9mMSt","react":"21dqq","./checkoutlist/CheckOutList":"k9EZy","./checkoutlist/CheckOutMessage":"hPDWD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9mMSt":[function() {},{}],"k9EZy":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3a09 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -53116,15 +53151,19 @@ function CheckOutList(props) {
     const text = "Shopping Cart";
     let totalSum = 0;
     const uniqueItems = Object.values(props.checkOutArr);
-    uniqueItems.forEach((item)=>{
-        totalSum = totalSum + item.price;
-    });
     function checkOut(event) {
-        const option = event.target.textContent;
-        if (option === "Checkout") uniqueItems.forEach((item)=>{
-            patchToFirebase(item.id, item.quant);
+        uniqueItems.forEach((item)=>{
+            totalSum = totalSum + item.price;
         });
-        else if (option === "Remove") {
+        const option = event.target.textContent;
+        if (option === "Checkout") {
+            if (props.checkOutArr.length !== 0) {
+                uniqueItems.forEach((item)=>{
+                    patchToFirebase(item.id, item.quant);
+                });
+                props.setIsCheckedOut(false);
+            } else alert("Cart is empty");
+        } else if (option === "Remove") {
             props.setIsShopping(true);
             props.setCheckOutArr([]);
         } else props.setIsShopping(true);
@@ -53138,7 +53177,6 @@ function CheckOutList(props) {
             alert(`${itemToUpdate.product} doesnt have enough in stock`);
             return;
         }
-        props.setCheckOutArr([]);
         const updateStockbalance = itemToUpdate.stockbalance - quant;
         const newStockBalance = {
             stockbalance: updateStockbalance
@@ -53152,6 +53190,7 @@ function CheckOutList(props) {
             }
         };
         const patchResponse = await fetch(patchUrl, options);
+        props.setCheckOutArr([]);
     }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
@@ -53159,14 +53198,14 @@ function CheckOutList(props) {
                 children: text
             }, void 0, false, {
                 fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                lineNumber: 65,
+                lineNumber: 71,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cartLabelsDefault.default), {}, void 0, false, {
                         fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                        lineNumber: 67,
+                        lineNumber: 73,
                         columnNumber: 17
                     }, this),
                     props.checkOutArr.map((item)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
@@ -53178,12 +53217,12 @@ function CheckOutList(props) {
                                         alt: ""
                                     }, void 0, false, {
                                         fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                                        lineNumber: 71,
+                                        lineNumber: 77,
                                         columnNumber: 31
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                                    lineNumber: 71,
+                                    lineNumber: 77,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -53191,7 +53230,7 @@ function CheckOutList(props) {
                                     children: item.product
                                 }, void 0, false, {
                                     fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                                    lineNumber: 72,
+                                    lineNumber: 78,
                                     columnNumber: 32
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -53199,7 +53238,7 @@ function CheckOutList(props) {
                                     children: item.quant
                                 }, void 0, false, {
                                     fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                                    lineNumber: 73,
+                                    lineNumber: 79,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -53207,13 +53246,13 @@ function CheckOutList(props) {
                                     children: item.price
                                 }, void 0, false, {
                                     fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                                    lineNumber: 74,
+                                    lineNumber: 80,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, item.id, true, {
                             fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                            lineNumber: 70,
+                            lineNumber: 76,
                             columnNumber: 21
                         }, this)),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
@@ -53225,31 +53264,31 @@ function CheckOutList(props) {
                             ]
                         }, void 0, true, {
                             fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                            lineNumber: 77,
+                            lineNumber: 83,
                             columnNumber: 35
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                        lineNumber: 77,
+                        lineNumber: 83,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                lineNumber: 66,
+                lineNumber: 72,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _cartButtonsDefault.default), {
                 checkOut: checkOut
             }, void 0, false, {
                 fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-                lineNumber: 80,
+                lineNumber: 86,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/checkout/checkoutlist/CheckOutList.jsx",
-        lineNumber: 63,
+        lineNumber: 69,
         columnNumber: 9
     }, this);
 }
@@ -53263,7 +53302,7 @@ $RefreshReg$(_c, "CheckOutList");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./cartcomponents/CartLabels":"fV095","./cartcomponents/CartButtons":"jGKAg"}],"fV095":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","./cartcomponents/CartLabels":"fV095","./cartcomponents/CartButtons":"jGKAg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fV095":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$37a6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -53358,6 +53397,58 @@ var _c;
 $RefreshReg$(_c, "CartButtons");
 
   $parcel$ReactRefreshHelpers$e444.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hPDWD":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$6231 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$6231.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+function CheckOutMessage(props) {
+    const message = "Thank you for your order";
+    const buttonText = "Back to homepage";
+    function backToHomePage() {
+        props.setIsCheckedOut(true);
+        props.setIsShopping(true);
+    }
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        id: "checkOutMessage",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                children: message
+            }, void 0, false, {
+                fileName: "src/components/checkout/checkoutlist/CheckOutMessage.jsx",
+                lineNumber: 14,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: backToHomePage,
+                children: buttonText
+            }, void 0, false, {
+                fileName: "src/components/checkout/checkoutlist/CheckOutMessage.jsx",
+                lineNumber: 16,
+                columnNumber: 13
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/checkout/checkoutlist/CheckOutMessage.jsx",
+        lineNumber: 13,
+        columnNumber: 9
+    }, this);
+}
+exports.default = CheckOutMessage;
+_c = CheckOutMessage;
+var _c;
+$RefreshReg$(_c, "CheckOutMessage");
+
+  $parcel$ReactRefreshHelpers$6231.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;

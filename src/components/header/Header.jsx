@@ -8,8 +8,8 @@ export default function Header(props) {
     let cartDisplay;
     let amountDisplay;
     
-    props.checkOutArr.forEach(element => {
-        itemsInCart = itemsInCart + element.quant;
+    props.checkOutArr.forEach(item => {
+        itemsInCart = itemsInCart + item.quant;
     });
 
     if (!isShopping) {

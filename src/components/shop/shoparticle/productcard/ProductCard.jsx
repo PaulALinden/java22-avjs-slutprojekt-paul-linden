@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 export default function ProductCard(props) {
     const [listData, setListData] = useState([]);
 
+    console.log(props.category)
+
     function addToCart(event) {
         const id = event.target.parentElement.id;
         const item = listData.find((item) => item.id === parseInt(id));
@@ -13,7 +15,7 @@ export default function ProductCard(props) {
             alert('Out of stock');
             return;
         }
-        
+
         if (existingItemIndex === -1) {
             item.quant = 1;
             props.setCheckOutArr((checkOutArr) => [...checkOutArr, item]);
@@ -34,7 +36,15 @@ export default function ProductCard(props) {
         async function getData() {
             const res = await fetch(`https://react-shop-45c8b-default-rtdb.europe-west1.firebasedatabase.app/products.json`);
             const data = await res.json();
-            setListData(Object.values(data));
+        
+            const dataValue = Object.values(data)
+            
+            if (props.category === 'all') {
+                setListData(Object.values(data));
+            } else {
+                const filteredList = dataValue.filter(item => item.category === props.category);
+                setListData(Object.values(filteredList));
+            }
         }
         getData();
     }, []);

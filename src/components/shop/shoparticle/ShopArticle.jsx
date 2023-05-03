@@ -11,7 +11,7 @@ export default function ShopArticle(props) {
 
             <div id="productContainer">
 
-                <ProductCard setCheckOutArr={props.setCheckOutArr} checkOutArr={props.checkOutArr}/>
+                <ProductCard setCheckOutArr={props.setCheckOutArr} checkOutArr={props.checkOutArr} category={props.category} />
                
             </div>
 

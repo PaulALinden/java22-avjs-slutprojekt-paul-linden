@@ -1,13 +1,18 @@
 
-export default function ShopAside() {
+export default function ShopAside(props) {
 
-    const category = ['Desktops', 'Laptops', 'Games'];
+    const category = ['All','Desktops', 'Laptops', 'Games'];
+
+    function chooseCategory(event) {
+        let choosenCategory = event.target.textContent.toLowerCase();
+        props.setCategory(choosenCategory);
+    }
 
     return (
         <aside id="shopAside">
             <ul>
                 {category.map((item) => (
-                    <li key={item}>{item}</li>
+                    <li onClick={chooseCategory} key={item}>{item}</li>
                 ))}
             </ul>
         </aside>

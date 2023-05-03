@@ -7,17 +7,24 @@ export default function CheckOutList(props) {
     let totalSum = 0;
 
     const uniqueItems = Object.values(props.checkOutArr);
-    
-    uniqueItems.forEach(item => {totalSum = totalSum + item.price});
 
     function checkOut(event) {
-    
+        uniqueItems.forEach(item => { totalSum = totalSum + item.price });
+
         const option = event.target.textContent;
 
         if (option === 'Checkout') {
-            uniqueItems.forEach(item => {
-                patchToFirebase(item.id, item.quant)
-            });
+
+            if (props.checkOutArr.length !== 0) {
+                uniqueItems.forEach(item => {
+                    patchToFirebase(item.id, item.quant)
+                });
+
+                props.setIsCheckedOut(false);
+            }
+            else {
+                alert('Cart is empty')
+            }
         }
         else if (option === 'Remove') {
             props.setIsShopping(true);
@@ -40,8 +47,6 @@ export default function CheckOutList(props) {
             return;
         }
 
-        props.setCheckOutArr([]);
-
         const updateStockbalance = itemToUpdate.stockbalance - quant;
         const newStockBalance = {
             stockbalance: updateStockbalance,
@@ -57,6 +62,7 @@ export default function CheckOutList(props) {
         };
 
         const patchResponse = await fetch(patchUrl, options);
+        props.setCheckOutArr([]);
     }
 
     return (
