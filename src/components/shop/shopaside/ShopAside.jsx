@@ -1,7 +1,7 @@
 
 export default function ShopAside(props) {
 
-    const category = ['All','Desktops', 'Laptops', 'Games'];
+    const category = ['All','Desktop', 'Laptop', 'Game'];
 
     function chooseCategory(event) {
         let choosenCategory = event.target.textContent.toLowerCase();

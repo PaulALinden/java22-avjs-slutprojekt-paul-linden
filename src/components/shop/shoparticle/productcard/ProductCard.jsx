@@ -38,17 +38,20 @@ export default function ProductCard(props) {
             const data = await res.json();
         
             const dataValue = Object.values(data)
+            const filteredList = dataValue.filter(item => item.category === props.category);
             
             if (props.category === 'all') {
-                setListData(Object.values(data));
-            } else {
-                const filteredList = dataValue.filter(item => item.category === props.category);
-                setListData(Object.values(filteredList));
+                setListData(dataValue)
             }
+            else {
+                setListData(filteredList)
+            }
+            console.log(filteredList)
         }
+    
         getData();
-    }, []);
-
+    }, [props.category]);
+    
     return (
 
         listData.map((item) => (
