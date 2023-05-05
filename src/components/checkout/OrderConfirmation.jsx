@@ -1,7 +1,7 @@
 
-export default function CheckOutMessage(props) {
+export default function OrderConfirmation(props) {
     
-    const message = 'Thank you for your order';
+    const confirmationMessage = 'Thank you for your order';
     const buttonText = 'Back to homepage'
 
     function backToHomePage() {
@@ -11,8 +11,7 @@ export default function CheckOutMessage(props) {
 
     return (
         <div id="checkOutMessage">
-            <h3>{message}</h3>
-
+            <h3>{confirmationMessage}</h3>
             <button onClick={backToHomePage}>{buttonText}</button>
         </div>
     )
