@@ -1,18 +1,16 @@
 
-export default function OrderConfirmation(props) {
+export default function OrderConfirmation({setIsCheckedOut, setIsShopping}) {
     
-    const confirmationMessage = 'Thank you for your order';
-    const buttonText = 'Back to homepage'
-
+    // Handler for the button to go back to the homepage
     function backToHomePage() {
-        props.setIsCheckedOut(true);
-        props.setIsShopping(true);
+        setIsCheckedOut(true);
+        setIsShopping(true);
     }
 
     return (
         <div id="checkOutMessage">
-            <h3>{confirmationMessage}</h3>
-            <button onClick={backToHomePage}>{buttonText}</button>
+            <h3>Thank you for your order</h3>
+            <button onClick={backToHomePage}>Back to homepage</button>
         </div>
     )
 }

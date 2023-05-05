@@ -9,14 +9,14 @@ import CheckoutPage from './components/checkout/CheckoutPage';
 function App() {
 
     const [isShopping, setIsShopping] = useState(true);
-    const [cartList, setCartList] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
 
     return (
         <>
-            <Header setIsShopping={setIsShopping} isShopping={isShopping} cartList={cartList} />
+            <Header setIsShopping={setIsShopping} isShopping={isShopping} cartItems={cartItems} />
             <div>
-                {isShopping ? <HomePageShop cartList={cartList} setCartList={setCartList} setIsShopping={setIsShopping}/>
-                    : <CheckoutPage cartList={cartList} setCartList={setCartList} setIsShopping={setIsShopping} />}
+                {isShopping ? <HomePageShop cartItems={cartItems} setCartItems={setCartItems} setIsShopping={setIsShopping}/>
+                    : <CheckoutPage cartItems={cartItems} setCartItems={setCartItems} setIsShopping={setIsShopping} />}
             </div>
         </>
     );

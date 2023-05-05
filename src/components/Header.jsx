@@ -1,16 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-export default function Header({ isShopping, setIsShopping, cartList }) {
-
-    let itemsInCart = 0;
-    let cartButtonVisibility;
-    let cartItemCountVisibility;
+export default function Header({ isShopping, setIsShopping, cartItems }) {
 
     // Calculate the total number of items in the cart
-    cartList.forEach(item => {
-        itemsInCart = itemsInCart + item.quant;
-    });
+    const itemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+    let cartButtonVisibility;
+    let cartItemCountVisibility;
 
     // Set the visibility of the cart button based on the shopping state
     if (!isShopping) {

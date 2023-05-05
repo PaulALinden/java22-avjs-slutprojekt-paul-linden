@@ -5,7 +5,7 @@ import ProductCategoryFilter from './ProductCategoryFilter';
 import ProductCatalog from './ProductCatalog';
 
 
-export default function HomePageShop({cartList, setCartList}) {
+export default function HomePageShop({cartItems, setCartItems}) {
 
     // State variable to store the current category selected by the user.
     const [productCategory, setProductCategory] = useState('all');
@@ -18,7 +18,7 @@ export default function HomePageShop({cartList, setCartList}) {
                 <ProductCategoryFilter setProductCategory={setProductCategory} />
                 
                 {/* Displays the products in the selected category */}
-                <ProductCatalog cartList={cartList} setCartList={setCartList} productCategory={productCategory} />
+                <ProductCatalog cartItems={cartItems} setCartItems={setCartItems} productCategory={productCategory} />
             </main>
         </div>
     );

@@ -1,76 +1,41 @@
 import CartLabels from "./CartSummaryLabels";
 import CheckoutButtons from "./CheckoutButtons";
+import { updateStockBalance } from "../../modules/stockBalanceUpdater";
 
-export default function CartSummary(props) {
+export default function CartSummary({ cartItems, setCartItems, setIsCheckedOut, setIsShopping }) {
     const cartHeaderText = 'Shopping Cart';
-    let totalSum = 0;
+    const totalSum = cartItems.reduce((acc, cartItem) => acc + cartItem.price, 0);
 
-    const uniqueItemsInCart = Object.values(props.cartList);
-    uniqueItemsInCart.forEach(item => { totalSum = totalSum + item.price });
-
-    function checkOut(event) {
-
+    function handleCheckOut(event) {
         const cartOption = event.target.textContent;
 
-        if (cartOption === 'Checkout') {
-
-            if (props.cartList.length !== 0) {
-                uniqueItemsInCart.forEach(item => {
-                    upDateStockBalance(item.id, item.quant)
-                });
-
-                props.setIsCheckedOut(true);
-            }
-            else {
-                alert('Cart is empty')
-            }
-        }
-        else if (cartOption === 'Remove') {
-            props.setIsShopping(true);
-            props.setCartList([])
-        }
-        else {
-            props.setIsShopping(true);
-        }
-    }
-
-    async function upDateStockBalance(id, quant) {
-        const itemToUpdate = uniqueItemsInCart.find((item) => item.id === id);
-
-        if (itemToUpdate.stockbalance === 0) {
-            alert(`${itemToUpdate.product} is out of stock!!`);
-            return;
-        }
-        else if (quant > itemToUpdate.stockbalance) {
-            alert(`${itemToUpdate.product} doesnt have enough in stock`);
-            return;
-        }
-
-        const updatedBalance = itemToUpdate.stockbalance - quant;
-        const newStockBalance = {
-            stockbalance: updatedBalance,
-        };
-
-        const patchUrl = `https://react-shop-45c8b-default-rtdb.europe-west1.firebasedatabase.app/products/item${id}.json`;
-        const options = {
-            method: "PATCH",
-            body: JSON.stringify(newStockBalance),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
+        const actions = {
+            Checkout: () => {
+                if (cartItems.length !== 0) {
+                   
+                    updateStockBalance(cartItems, setIsCheckedOut, setCartItems)
+                   
+                } else {
+                    alert('Cart is empty')
+                }
             },
-        };
-
-        const updateResponse = await fetch(patchUrl, options);
-       
-        props.setCartList([]);
+            Remove: () => {
+                setIsShopping(true);
+                setCartItems([])
+            },
+            Continue: () => {
+                setIsShopping(true);
+            }
+        }
+        actions[cartOption]();
     }
-
+   
     return (
         <div>
             <h2>{cartHeaderText}</h2>
             <ul>
                 <CartLabels />
-                {props.cartList.map((item) => (
+                {cartItems.map((item) => (
                     <li key={item.id}>
                         <span><img id='productImg' src={item.img} alt="" /></span>
                         <span id='product'>{item.product}</span>
@@ -81,9 +46,8 @@ export default function CartSummary(props) {
                 <li id='totalSum'>
                     <span>Total: {totalSum}</span>
                 </li>
-
             </ul>
-            <CheckoutButtons checkOut={checkOut} />
+            <CheckoutButtons handleCheckOut={handleCheckOut} />
         </div>
     );
 }

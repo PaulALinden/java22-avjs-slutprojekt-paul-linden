@@ -29,11 +29,11 @@
     border-radius: 6%;
 }
 
-#checkout #checkoutButton {
+#checkout #proceedToCheckoutButton {
    background-color: #52b8e4;
 }
 
-#checkout #removeButton {
+#checkout #removeFromCartButton {
     background-color: #e45252;
  }
 
