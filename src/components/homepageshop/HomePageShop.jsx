@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import '../../css/shop/Shop.css';
+import '../../css/HomePageShop.css';
 
 import ProductCategoryFilter from './ProductCategoryFilter';
 import ProductCatalog from './ProductCatalog';
 
 
-export default function HomePageShop({cartItems, setCartItems}) {
+export default function HomePageShop({cartItems, setCartItems, setStatus}) {
 
     // State variable to store the current category selected by the user.
     const [productCategory, setProductCategory] = useState('all');
@@ -18,7 +18,7 @@ export default function HomePageShop({cartItems, setCartItems}) {
                 <ProductCategoryFilter setProductCategory={setProductCategory} />
                 
                 {/* Displays the products in the selected category */}
-                <ProductCatalog cartItems={cartItems} setCartItems={setCartItems} productCategory={productCategory} />
+                <ProductCatalog cartItems={cartItems} setCartItems={setCartItems} productCategory={productCategory} setStatus={setStatus}/>
             </main>
         </div>
     );

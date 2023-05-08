@@ -1,7 +1,7 @@
 
 export default function CheckoutButtons({ handleCheckOut }) {
 
-    const buttonsText = ['Remove', 'Continue', 'Checkout'];
+    const buttonsText = ['Empty', 'Continue', 'Checkout'];
     const buttonsId = ['removeFromCartButton', 'continueToHomePageButton', 'proceedToCheckoutButton'];
     return (
         <section>

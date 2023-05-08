@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
-export default function Header({ isShopping, setIsShopping, cartItems }) {
+export default function Header({ isShopping, setIsShopping, cartItems, status, setStatus}) {
 
     // Calculate the total number of items in the cart
     const itemsInCart = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -10,7 +10,7 @@ export default function Header({ isShopping, setIsShopping, cartItems }) {
     let cartItemCountVisibility;
 
     // Set the visibility of the cart button based on the shopping state
-    if (!isShopping) {
+    if (!isShopping && status ==='') {
         cartButtonVisibility = 'hidden';
     } else {
         cartButtonVisibility = ''
@@ -31,6 +31,7 @@ export default function Header({ isShopping, setIsShopping, cartItems }) {
     // Function to handle the click event on the header to return to the homepage
     function handleHomePageClick() {
         setIsShopping(true)
+        setStatus('');
     }
     return (
         <header id="header">

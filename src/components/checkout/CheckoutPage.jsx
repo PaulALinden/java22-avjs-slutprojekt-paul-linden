@@ -1,10 +1,10 @@
-import '../../css/checkout/CheckOut.css'
+import '../../css/CheckOut.css'
 import React, { useState } from 'react';
 
 import CartSummary from './CartSummary';
 import OrderConfirmation from './OrderConfirmation';
 
-export default function CheckoutPage({cartItems, setCartItems, setIsShopping}) {
+export default function CheckoutPage({ cartItems, setCartItems, setIsShopping, setStatus }) {
 
     // state to determine if checkout is completed
     const [isCheckedOut, setIsCheckedOut] = useState(false);
@@ -12,8 +12,8 @@ export default function CheckoutPage({cartItems, setCartItems, setIsShopping}) {
     return (
         <div id="checkout">
             {/* conditionally render checkout confirmation message or cart summary */}
-            {isCheckedOut ? <OrderConfirmation setIsCheckedOut={setIsCheckedOut} setIsShopping={setIsShopping}/>
-                : <CartSummary cartItems={cartItems} setCartItems={setCartItems} setIsCheckedOut={setIsCheckedOut} setIsShopping={setIsShopping}/>}
+            {isCheckedOut ? <OrderConfirmation setIsCheckedOut={setIsCheckedOut} setIsShopping={setIsShopping} />
+                : <CartSummary cartItems={cartItems} setCartItems={setCartItems} setIsCheckedOut={setIsCheckedOut} setIsShopping={setIsShopping} setStatus={setStatus} />}
         </div>
     );
 }

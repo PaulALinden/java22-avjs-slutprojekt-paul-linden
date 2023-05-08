@@ -1,7 +1,7 @@
 import getFirebaseApp from '../modules/firebaseApp';
 import { getDatabase, ref, onValue } from "firebase/database";
 
-function getProductData(productCategory, setProductList) {
+export default function getProductData(productCategory, setProductList,setStatus) {
 
     // Get the Firebase database reference and products reference
     const database = getDatabase(getFirebaseApp());
@@ -10,7 +10,7 @@ function getProductData(productCategory, setProductList) {
     // Listen for changes to the products node
     const unsubscribe = onValue(productsRef, (snapshot) => {
         if (!snapshot.exists()) {
-            throw new Error("Unable to fetch product data.");
+            return setStatus('noData');
         }
 
         const productData = snapshot.val();
@@ -32,7 +32,4 @@ function getProductData(productCategory, setProductList) {
 
     return unsubscribe;
 }
-
-export default getProductData;
-
 

@@ -1,7 +1,7 @@
 import { getDatabase, ref, get, child, update } from "firebase/database";
 import getFirebaseApp from "./firebaseApp";
 
-export async function updateStockBalance(cartItems, setIsCheckedOut, setCartItems) {
+export async function updateStockBalance(cartItems, setIsCheckedOut, setCartItems, setStatus) {
     
     // Get the Firebase database reference and products reference
     const database = getDatabase(getFirebaseApp());
@@ -15,19 +15,16 @@ export async function updateStockBalance(cartItems, setIsCheckedOut, setCartItem
             
             // Check if all items have enough stock balance
             if (item.quantity > stockBalance) {
-                alert(`${item.product} doesn't have enough in stock`);
-                return;
+                return setStatus('outOfBalance');;
             }
 
             const updatedBalance = stockBalance - item.quantity;
             // Update the stock balance in the database
             await update(child(productsRef, `item${item.id}`), { stockbalance: updatedBalance });
         }
-
         setIsCheckedOut(true);
         setCartItems([]);
     } catch (error) {
-        console.error(error);
-        alert("An error occurred while updating the stock balance");
+        setStatus('error');
     }
 }
